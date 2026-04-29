@@ -1,13 +1,10 @@
 <!--
 Sync Impact Report
-- Version change: [TEMPLATE] → 1.0.0
+- Version change: 1.0.0 → 1.1.0
 - List of modified principles:
-  - [PRINCIPLE_1_NAME] → I. Multi-Tenant Data Sovereignty
-  - [PRINCIPLE_2_NAME] → II. Transactional Integrity & Commission Accuracy
-  - [PRINCIPLE_3_NAME] → III. Service-Oriented Extensibility
-  - [PRINCIPLE_4_NAME] → IV. Quality Assurance for Critical Paths
-  - [PRINCIPLE_5_NAME] → V. Auditability & Transparent Reporting
-- Added sections: Security & Compliance, Development Workflow
+  - None (Renamed/Redefined)
+- Added sections:
+  - VI. Mobile-First Design (Principle)
 - Removed sections: None
 - Templates requiring updates:
   - .specify/templates/plan-template.md (✅ aligned)
@@ -40,6 +37,10 @@ Automated tests (unit, integration, and E2E) are MANDATORY for the "Golden Path"
 All financial events, including sales, refunds, and commission payouts, MUST generate immutable audit logs. Sellers must have access to transparent reports of their transactions.
 **Rationale**: Compliance and seller trust.
 
+### VI. Mobile-First Design
+The platform's user interface MUST be designed and developed for mobile devices first. Desktop enhancements SHOULD be layered on top of the functional mobile experience.
+**Rationale**: Ensuring accessibility and usability for the widest range of sellers and buyers.
+
 ## Security & Compliance
 The platform must adhere to OWASP Top 10 security standards. All sensitive data must be encrypted at rest and in transit. Payment processing must comply with PCI-DSS standards.
 
@@ -49,4 +50,4 @@ All changes must be submitted via Pull Requests. No PR can be merged without at 
 ## Governance
 This Constitution supersedes all other practices. Amendments require a formal review and a version bump. All PRs must verify compliance with these principles. Use `.specify/memory/constitution.md` as the source of truth.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
+**Version**: 1.1.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
