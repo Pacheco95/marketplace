@@ -45,6 +45,7 @@ As a visitor, I want to be informed about the use of cookies and provide my cons
 - **FR-004**: System MUST allow users to explicitly "Accept" or "Agree" to the cookies policy.
 - **FR-005**: System MUST persist the cookies consent state so the user is not prompted again on subsequent visits within the same browser session or period.
 - **FR-006**: System MUST include a placeholder link to a detailed Cookies Policy document/section.
+- **FR-007**: System MUST support internationalization (i18n) for all user-facing strings (e.g., landing page content, cookie notice).
 
 ### Key Entities
 

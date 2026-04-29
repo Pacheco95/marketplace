@@ -1,15 +1,15 @@
 <!--
 Sync Impact Report
-- Version change: 1.0.0 → 1.1.0
+- Version change: 1.1.0 → 1.2.0
 - List of modified principles:
   - None (Renamed/Redefined)
 - Added sections:
-  - VI. Mobile-First Design (Principle)
+  - VII. Internationalization (i18n) by Default (Principle)
 - Removed sections: None
 - Templates requiring updates:
-  - .specify/templates/plan-template.md (✅ aligned)
-  - .specify/templates/spec-template.md (✅ aligned)
-  - .specify/templates/tasks-template.md (✅ aligned)
+  - .specify/templates/plan-template.md (✅ updated)
+  - .specify/templates/spec-template.md (✅ updated)
+  - .specify/templates/tasks-template.md (✅ updated)
 - Follow-up TODOs: None
 -->
 
@@ -41,6 +41,10 @@ All financial events, including sales, refunds, and commission payouts, MUST gen
 The platform's user interface MUST be designed and developed for mobile devices first. Desktop enhancements SHOULD be layered on top of the functional mobile experience.
 **Rationale**: Ensuring accessibility and usability for the widest range of sellers and buyers.
 
+### VII. Internationalization (i18n) by Default
+The platform MUST be built to support multiple languages and locales from the start. All user-facing strings MUST be externalized using standard i18n libraries and patterns.
+**Rationale**: To reach a global market of sellers and buyers and ensure accessibility across different regions.
+
 ## Security & Compliance
 The platform must adhere to OWASP Top 10 security standards. All sensitive data must be encrypted at rest and in transit. Payment processing must comply with PCI-DSS standards.
 
@@ -50,4 +54,4 @@ All changes must be submitted via Pull Requests. No PR can be merged without at 
 ## Governance
 This Constitution supersedes all other practices. Amendments require a formal review and a version bump. All PRs must verify compliance with these principles. Use `.specify/memory/constitution.md` as the source of truth.
 
-**Version**: 1.1.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
+**Version**: 1.2.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
