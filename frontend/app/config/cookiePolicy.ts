@@ -1,0 +1,2 @@
+export const COOKIE_POLICY_VERSION = '1.0.0'
+export const COOKIE_POLICY_UPDATED_AT = '2026-04-29'

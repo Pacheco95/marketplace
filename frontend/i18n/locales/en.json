@@ -1,0 +1,55 @@
+{
+  "cookieBanner": {
+    "message": "We use cookies to improve your experience. By using our site, you agree to our cookie policy.",
+    "agreeButton": "Agree",
+    "policyLink": "Cookie Policy"
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy",
+    "version": "Version",
+    "lastUpdated": "Last Updated",
+    "backLink": "Back to Home",
+    "sections": {
+      "whatWeCollect": {
+        "title": "What Cookies We Collect",
+        "body": "We collect essential cookies required for the operation of our platform, including session cookies and preference cookies."
+      },
+      "purpose": {
+        "title": "Purpose",
+        "body": "Cookies are used to maintain your session, remember your preferences, and improve the performance and functionality of our marketplace."
+      },
+      "retention": {
+        "title": "Retention Period",
+        "body": "Cookies are retained for the duration of your session or up to 12 months for persistent preferences."
+      }
+    }
+  },
+  "hero": {
+    "headline": "The Marketplace for Modern Commerce",
+    "subheadline": "Connect buyers and sellers on a transparent, commission-based platform built for scale.",
+    "cta": "Get Started"
+  },
+  "features": {
+    "title": "Why Choose Us",
+    "items": {
+      "transparent": {
+        "title": "Transparent Commissions",
+        "description": "Know exactly what you pay. Our commission model is clear, predictable, and competitive."
+      },
+      "scalable": {
+        "title": "Built to Scale",
+        "description": "From your first listing to thousands of transactions, our infrastructure grows with you."
+      },
+      "trusted": {
+        "title": "Trusted by Sellers",
+        "description": "Join a community of verified sellers and reach buyers who are ready to purchase."
+      }
+    }
+  },
+  "commissionInfo": {
+    "title": "Simple Commission Model",
+    "description": "We charge a flat commission on each successful transaction — no hidden fees, no monthly charges.",
+    "rate": "5% per transaction",
+    "note": "Commission is deducted automatically at the time of sale."
+  }
+}
