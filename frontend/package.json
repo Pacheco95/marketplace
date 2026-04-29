@@ -8,10 +8,15 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "format": "prettier --write .",
     "test": "vitest",
     "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "test:perf": "echo 'Run lighthouse or other performance tools' && exit 0",
+    "prepare": "husky"
   },
   "dependencies": {
     "@nuxtjs/i18n": "10.3.0",

@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report
-- Version change: 1.1.0 → 1.2.0
+- Version change: 1.2.0 → 1.3.0
 - List of modified principles:
   - None (Renamed/Redefined)
 - Added sections:
-  - VII. Internationalization (i18n) by Default (Principle)
+  - VIII. Engineering Excellence & CI/CD Enforcement (Principle)
 - Removed sections: None
 - Templates requiring updates:
   - .specify/templates/plan-template.md (✅ updated)
@@ -45,13 +45,17 @@ The platform's user interface MUST be designed and developed for mobile devices 
 The platform MUST be built to support multiple languages and locales from the start. All user-facing strings MUST be externalized using standard i18n libraries and patterns.
 **Rationale**: To reach a global market of sellers and buyers and ensure accessibility across different regions.
 
+### VIII. Engineering Excellence & CI/CD Enforcement
+The project MUST maintain rigorous code quality standards. This includes mandatory linting (ESLint), consistent formatting (Prettier), and enforcement via Git hooks (Husky, lint-staged). A CI pipeline MUST validate all changes upon merge to the `main` branch, ensuring all tests pass with a minimum coverage of 90% (100% target). Common tasks (testing, coverage, performance) MUST be automated via standard entry points (e.g., `package.json`, `Makefile`).
+**Rationale**: Ensures long-term maintainability, prevents regressions, and optimizes developer velocity through automation and consistency.
+
 ## Security & Compliance
 The platform must adhere to OWASP Top 10 security standards. All sensitive data must be encrypted at rest and in transit. Payment processing must comply with PCI-DSS standards.
 
 ## Development Workflow
-All changes must be submitted via Pull Requests. No PR can be merged without at least one approval and a passing test suite. All features must include documentation and relevant tests.
+All changes must be submitted via Pull Requests. No PR can be merged without at least one approval and a passing test suite (including linting, formatting, and coverage checks). All features must include documentation and relevant tests.
 
 ## Governance
 This Constitution supersedes all other practices. Amendments require a formal review and a version bump. All PRs must verify compliance with these principles. Use `.specify/memory/constitution.md` as the source of truth.
 
-**Version**: 1.2.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
+**Version**: 1.3.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29

@@ -50,7 +50,10 @@ description: "Task list template for feature implementation"
 
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
+- [ ] T003 [P] Configure linting (ESLint) and formatting (Prettier) tools
+- [ ] T004 [P] Setup Git hooks (Husky, lint-staged) for automated checks
+- [ ] T005 [P] Setup CI pipeline (GitHub Actions) with test coverage enforcement (>= 90%)
+- [ ] T006 [P] Add common scripts (test, coverage, performance) to package.json/Makefile
 
 ---
 
