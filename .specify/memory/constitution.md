@@ -1,50 +1,52 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: [TEMPLATE] → 1.0.0
+- List of modified principles:
+  - [PRINCIPLE_1_NAME] → I. Multi-Tenant Data Sovereignty
+  - [PRINCIPLE_2_NAME] → II. Transactional Integrity & Commission Accuracy
+  - [PRINCIPLE_3_NAME] → III. Service-Oriented Extensibility
+  - [PRINCIPLE_4_NAME] → IV. Quality Assurance for Critical Paths
+  - [PRINCIPLE_5_NAME] → V. Auditability & Transparent Reporting
+- Added sections: Security & Compliance, Development Workflow
+- Removed sections: None
+- Templates requiring updates:
+  - .specify/templates/plan-template.md (✅ aligned)
+  - .specify/templates/spec-template.md (✅ aligned)
+  - .specify/templates/tasks-template.md (✅ aligned)
+- Follow-up TODOs: None
+-->
+
+# Marketplace Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Multi-Tenant Data Sovereignty
+All seller data, including product listings, customer information, and financial records, MUST be logically isolated. Cross-tenant data leakage is a critical failure.
+**Rationale**: Trust is the foundation of a SaaS marketplace.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Transactional Integrity & Commission Accuracy
+Every sale MUST be processed through a verified transactional flow that calculates and applies the platform commission precisely. Commission logic must be centralized and immutable by tenants.
+**Rationale**: The business model depends on accurate commission collection.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Service-Oriented Extensibility
+The platform SHOULD be built with a decoupled frontend and a robust, versioned API backend. This allows for future mobile applications or third-party integrations.
+**Rationale**: Flexibility to scale the ecosystem.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Quality Assurance for Critical Paths
+Automated tests (unit, integration, and E2E) are MANDATORY for the "Golden Path": seller registration, product publishing, checkout flow, and payment reconciliation.
+**Rationale**: Zero downtime or bugs in the revenue-generating path.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Auditability & Transparent Reporting
+All financial events, including sales, refunds, and commission payouts, MUST generate immutable audit logs. Sellers must have access to transparent reports of their transactions.
+**Rationale**: Compliance and seller trust.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Security & Compliance
+The platform must adhere to OWASP Top 10 security standards. All sensitive data must be encrypted at rest and in transit. Payment processing must comply with PCI-DSS standards.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+All changes must be submitted via Pull Requests. No PR can be merged without at least one approval and a passing test suite. All features must include documentation and relevant tests.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This Constitution supersedes all other practices. Amendments require a formal review and a version bump. All PRs must verify compliance with these principles. Use `.specify/memory/constitution.md` as the source of truth.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-29
