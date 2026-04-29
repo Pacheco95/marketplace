@@ -14,7 +14,7 @@
     *Select `minimal` template when prompted.*
     *Select `bun` as the package manager when prompted.*
     *Select `No` to not initialize a git repository when prompted.*
-    *Select `yes` to browse and install modules. Then pick `@nuxtjs/tailwindcss`, `@nuxtjs/i18n`, `@pinia/nuxt` and `shadcn-nuxt` when prompted.*
+    *Select `yes` to browse and install modules. Then pick `@nuxtjs/i18n`, `@pinia/nuxt` and `shadcn-nuxt` when prompted.*
 
 2. **Initialize MCP (Optional but Recommended)**:
     ```bash

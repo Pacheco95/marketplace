@@ -10,7 +10,7 @@ This is a greenfield project. Implement a high-performance, SEO-ready landing pa
 
 **Language/Version**: TypeScript, Nuxt 4 (v4.4.0)
 **Primary Dependencies**: Bun (Package Manager), ShadCN Vue (UI), Tailwind CSS (via ShadCN), Pinia (State), Radix Vue (via ShadCN), @nuxtjs/i18n (Internationalization)
-**Storage**: LocalStorage/Cookies for consent persistence
+**Storage**: LocalStorage/Cookies for consent persistence (version-aware: stored `ConsentRecord.version` is compared against `COOKIE_POLICY_VERSION` on every page load; mismatch re-triggers the banner)
 **Testing**: Vitest (Unit), Playwright (E2E)
 **Target Platform**: Web (SSR enabled for SEO)
 **Project Type**: Web Application (Frontend)
@@ -18,7 +18,7 @@ This is a greenfield project. Implement a high-performance, SEO-ready landing pa
 **Performance Goals**: <500ms load time (LCP), 100/100 Lighthouse SEO score
 
 **Constraints**: Mobile-First Design, Stateless components, No business logic in components, Nuxt 4 `app/` structure
-**Scale/Scope**: Single landing page + Cookie consent mechanism
+**Scale/Scope**: Landing page + Cookie Policy page + Cookie consent mechanism
 
 ## Constitution Check
 
@@ -29,7 +29,17 @@ This is a greenfield project. Implement a high-performance, SEO-ready landing pa
 3. **Service-Oriented Extensibility**: Frontend is decoupled; uses Nuxt SSR.
 4. **Quality Assurance for Critical Paths**: Mandatory tests for cookie consent dismissal and landing page visibility.
 5. **Auditability & Transparent Reporting**: N/A.
-6. **Mobile-First Design**: UI components must be verified on mobile breakpoints first. Use the default tailwind breakpoints. (CRITICAL)
+6. **Mobile-First Design**: UI components must be verified on mobile breakpoints first. Use the default Tailwind CSS v4 breakpoints (CRITICAL):
+
+   | Prefix | Min Width | Media Query |
+   |--------|-----------|-------------|
+   | `sm`   | 40rem (640px)  | `@media (width >= 40rem)` |
+   | `md`   | 48rem (768px)  | `@media (width >= 48rem)` |
+   | `lg`   | 64rem (1024px) | `@media (width >= 64rem)` |
+   | `xl`   | 80rem (1280px) | `@media (width >= 80rem)` |
+   | `2xl`  | 96rem (1536px) | `@media (width >= 96rem)` |
+
+   Design starts at base (< 40rem / 640px) and layers up. No unprefixed utility should break the mobile layout.
 
 ## Project Structure (Nuxt 4 Layout)
 
@@ -58,6 +68,8 @@ frontend/
 │   ├── layouts/
 │   ├── middleware/
 │   ├── pages/           # Page-level components
+│   │   ├── index.vue    # Landing page (US1)
+│   │   └── cookie-policy.vue  # Cookie Policy details page (US3/FR-006)
 │   ├── stores/          # Pinia stores
 │   └── app.vue
 ├── server/              # Nitro server routes

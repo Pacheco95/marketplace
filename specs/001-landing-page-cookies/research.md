@@ -10,7 +10,7 @@
 - **Rationale**: Nuxt 4 compatibility. Ensure `componentDir` in `nuxt.config.ts` points to the new `app/components/ui` if using the Nuxt 4 layout.
 - **Setup Flow**:
   Nuxt 4 CLI has the feature to add dependencies during the initialization command.
-  The user must choose to browse the dependencies and pick `@nuxtjs/tailwindcss`, `@nuxtjs/i18n`, `@pinia/nuxt` and `shadcn-nuxt` when prompted.
+  The user must choose to browse the dependencies and pick `@nuxtjs/i18n`, `@pinia/nuxt` and `shadcn-nuxt` when prompted.
 
 ## Decision: State Management & Logic Separation
 - **Pattern**: Pinia (Setup Stores), Composables, Stateless Components.
