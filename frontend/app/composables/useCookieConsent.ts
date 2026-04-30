@@ -13,7 +13,7 @@ export function useCookieConsent() {
     try {
       const raw = document.cookie
         .split('; ')
-        .find(row => row.startsWith('cookie_consent='))
+        .find((row) => row.startsWith('cookie_consent='))
         ?.split('=')
         .slice(1)
         .join('=')

@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "The users should be able to reach a landing page where they can have a good understanding of the SaaS product. The project does not have a brand yet, just use a temporary placeholder name. The user must agree with the cookies policy."
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Understand Product Value (Priority: P1)
 
@@ -52,7 +52,7 @@ As a visitor, I want to read the full details of the cookies used by the platfor
 1. **Given** a visitor navigates to `/cookie-policy`, **When** the page loads, **Then** they see a structured overview of what cookies are collected, why, and how long they are retained.
 2. **Given** a visitor arrives at `/cookie-policy` from the cookie banner link, **When** they return to the previous page, **Then** the cookie banner is still visible (consent not auto-granted by viewing the policy).
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -69,7 +69,7 @@ As a visitor, I want to read the full details of the cookies used by the platfor
 - **Visitor**: An unauthenticated user browsing the public site.
 - **ConsentRecord**: A client-side (or server-side) record of the user's agreement to the cookies policy.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

@@ -1,16 +1,22 @@
 import { test, expect } from '@playwright/test'
 
-async function isInViewport(page: import('@playwright/test').Page, locator: import('@playwright/test').Locator) {
-  return page.evaluate((el) => {
-    if (!el) return false
-    const rect = el.getBoundingClientRect()
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= window.innerHeight &&
-      rect.right <= window.innerWidth
-    )
-  }, await locator.elementHandle())
+async function isInViewport(
+  page: import('@playwright/test').Page,
+  locator: import('@playwright/test').Locator,
+) {
+  return page.evaluate(
+    (el) => {
+      if (!el) return false
+      const rect = el.getBoundingClientRect()
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= window.innerHeight &&
+        rect.right <= window.innerWidth
+      )
+    },
+    await locator.elementHandle(),
+  )
 }
 
 test.describe('Landing Page', () => {
