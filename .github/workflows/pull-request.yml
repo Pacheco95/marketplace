@@ -24,6 +24,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Cache Bun install dir
         uses: actions/cache@v4
         with:
@@ -42,6 +45,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Cache Bun install dir
         uses: actions/cache@v4
         with:
@@ -60,6 +66,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Cache Bun install dir
         uses: actions/cache@v4
         with:
@@ -78,6 +87,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Cache Bun install dir
         uses: actions/cache@v4
         with:
@@ -98,6 +110,9 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: .bun-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Cache Bun install dir
         uses: actions/cache@v4
         with:
@@ -124,7 +139,7 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: bunx playwright install-deps chromium
       - name: Build app
-        run: bun --cwd frontend run build
+        run: bun --cwd=frontend run build
       - name: Run e2e tests
         run: bun run test:e2e
       - name: Upload Playwright artifacts
