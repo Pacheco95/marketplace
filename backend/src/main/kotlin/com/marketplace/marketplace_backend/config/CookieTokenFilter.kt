@@ -16,8 +16,8 @@ class CookieTokenFilter : OncePerRequestFilter() {
     ) {
         val token = request.cookies?.firstOrNull { it.name == "marketplace_access_token" }?.value
 
-        if (token != null) {
-            val wrapped =
+        val next =
+            if (token != null) {
                 object : HttpServletRequestWrapper(request) {
                     override fun getHeader(name: String): String? =
                         if (name.equals("Authorization", ignoreCase = true)) {
@@ -26,9 +26,9 @@ class CookieTokenFilter : OncePerRequestFilter() {
                             super.getHeader(name)
                         }
                 }
-            filterChain.doFilter(wrapped, response)
-        } else {
-            filterChain.doFilter(request, response)
-        }
+            } else {
+                request
+            }
+        filterChain.doFilter(next, response)
     }
 }

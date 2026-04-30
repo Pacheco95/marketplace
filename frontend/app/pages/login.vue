@@ -17,6 +17,13 @@ const errorMessage = ref('')
 onMounted(async () => {
   const redirectTo = (route.query.redirect as string | undefined) ?? '/profile'
 
+  // Ensure auth state is hydrated before deciding whether to redirect.
+  // app.vue also calls fetchCurrentUser but it's async — on a direct navigation
+  // to /login the store may not be populated yet.
+  if (!store.isAuthenticated) {
+    await store.fetchCurrentUser()
+  }
+
   if (store.isAuthenticated) {
     await router.replace(redirectTo)
     return

@@ -6,6 +6,7 @@ import com.marketplace.marketplace_backend.web.dto.request.OneTapRequestDto
 import com.marketplace.marketplace_backend.web.dto.response.UserResponseDto
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 import java.net.URI
@@ -14,13 +15,15 @@ import java.util.UUID
 @RestController
 class AuthController(
     private val authService: AuthService,
+    @Value("\${app.cookie.secure:true}")
+    private val cookieSecure: Boolean,
 ) : AuthApi {
     override fun login(response: HttpServletResponse): ResponseEntity<Void> {
         val state = UUID.randomUUID().toString()
         val stateCookie =
             jakarta.servlet.http.Cookie("oauth_state", state).apply {
                 isHttpOnly = true
-                secure = true
+                secure = cookieSecure
                 path = "/"
                 maxAge = 300
                 setAttribute("SameSite", "Lax")

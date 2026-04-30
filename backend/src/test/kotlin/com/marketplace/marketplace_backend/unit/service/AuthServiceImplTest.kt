@@ -45,6 +45,8 @@ class AuthServiceImplTest {
                 issuerUri = "http://localhost:8180/realms/marketplace",
                 clientId = "marketplace-backend",
                 frontendBaseUrl = "http://localhost:3000",
+                backendBaseUrl = "http://localhost:8080",
+                cookieSecure = false,
                 googleJwksUri = "http://localhost:9999/certs",
             )
         val writer = PrintWriter(StringWriter())

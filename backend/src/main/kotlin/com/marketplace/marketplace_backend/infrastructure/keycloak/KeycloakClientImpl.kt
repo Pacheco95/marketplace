@@ -1,6 +1,7 @@
 package com.marketplace.marketplace_backend.infrastructure.keycloak
 
 import com.marketplace.marketplace_backend.exception.TokenExchangeFailedException
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -17,6 +18,7 @@ class KeycloakClientImpl(
     @Value("\${keycloak.client-secret:change-me-in-production}")
     private val clientSecret: String,
 ) : KeycloakClient {
+    private val log = LoggerFactory.getLogger(KeycloakClientImpl::class.java)
     private val restClient = RestClient.create()
     private val tokenEndpoint get() = "$issuerUri/protocol/openid-connect/token"
     private val logoutEndpoint get() = "$issuerUri/protocol/openid-connect/logout"
@@ -57,7 +59,7 @@ class KeycloakClientImpl(
                 .retrieve()
                 .toBodilessEntity()
         } catch (ex: RestClientResponseException) {
-            // Best-effort logout — log but don't throw
+            log.warn("Keycloak session revocation returned {}: {}", ex.statusCode, ex.message)
         }
     }
 

@@ -5,8 +5,8 @@ RUN bun install --frozen-lockfile
 COPY . .
 RUN bun run build
 
-FROM node:22-alpine
+FROM oven/bun:1-alpine
 WORKDIR /app
 COPY --from=builder /app/.output ./.output
 EXPOSE 3000
-ENTRYPOINT ["node", ".output/server/index.mjs"]
+ENTRYPOINT ["bun", "run", ".output/server/index.mjs"]

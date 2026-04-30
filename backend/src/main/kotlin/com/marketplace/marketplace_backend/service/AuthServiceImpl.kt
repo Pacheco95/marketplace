@@ -24,10 +24,14 @@ open class AuthServiceImpl(
     private val clientId: String,
     @Value("\${app.frontend.base-url:http://localhost:3000}")
     private val frontendBaseUrl: String,
+    @Value("\${app.backend.base-url:http://localhost:8080}")
+    private val backendBaseUrl: String,
+    @Value("\${app.cookie.secure:true}")
+    private val cookieSecure: Boolean,
     @Value("\${google.jwks-uri:https://www.googleapis.com/oauth2/v3/certs}")
     private val googleJwksUri: String,
 ) : AuthService {
-    private val callbackUri get() = "http://localhost:8080/api/v1/auth/callback"
+    private val callbackUri get() = "$backendBaseUrl/api/v1/auth/callback"
 
     override fun buildAuthorizationRedirectUrl(state: String): String =
         "$issuerUri/protocol/openid-connect/auth" +
@@ -157,7 +161,7 @@ open class AuthServiceImpl(
     ): Cookie {
         val cookie = Cookie(name, value)
         cookie.isHttpOnly = true
-        cookie.secure = true
+        cookie.secure = cookieSecure
         cookie.path = "/"
         cookie.maxAge = maxAge
         cookie.setAttribute("SameSite", "Lax")

@@ -16,7 +16,10 @@ test.describe('Auth — Login flow', () => {
     })
 
     await page.goto('/login')
-    await expect(page.getByRole('button', { name: /login with google/i })).toBeVisible()
+    // Scope to <main> to avoid matching the UserMenu "Login with Google" button in the header
+    await expect(
+      page.getByRole('main').getByRole('button', { name: /login with google/i }),
+    ).toBeVisible()
   })
 
   test('authenticated user visiting /login is redirected to /profile', async ({ page }) => {
@@ -33,6 +36,8 @@ test.describe('Auth — Login flow', () => {
     })
 
     await page.goto('/login')
-    await expect(page).toHaveURL(/\/profile/)
+    // The auth middleware and login.vue onMounted both call fetchCurrentUser;
+    // wait for navigation rather than asserting the URL immediately.
+    await expect(page).toHaveURL(/\/profile/, { timeout: 10000 })
   })
 })
