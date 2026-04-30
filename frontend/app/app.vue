@@ -1,4 +1,17 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/useAuthStore'
+import { useGoogleOneTap } from '~/composables/useGoogleOneTap'
+
+const store = useAuthStore()
+const { prompt } = useGoogleOneTap()
+
+onMounted(async () => {
+  await store.fetchCurrentUser()
+  if (!store.isAuthenticated) {
+    prompt()
+  }
+})
+
 useHead({
   htmlAttrs: { lang: 'en' },
   link: [

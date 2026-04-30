@@ -79,6 +79,67 @@ These check names are stable and are configured as required status checks for br
 - **Prettier owns all stylistic decisions.** ESLint is configured to defer to Prettier on conflicts.
 - The Prettier rule set is in `.prettierrc.json`. Changing it is a reviewable rule change — it affects every file in the repo.
 
+## Local Auth Setup
+
+The backend uses Google OAuth via Keycloak. To run the full stack locally:
+
+### Prerequisites
+
+- Docker Desktop (or Docker Engine + Compose)
+- A Google Cloud Console project with an OAuth 2.0 client ID (Web application type)
+- Java 25 (via `asdf install java temurin-25.0.3+9.0.LTS` or equivalent)
+
+### Steps
+
+1. **Copy the env file and fill in your credentials:**
+
+   ```sh
+   cp .env.example .env
+   # Edit .env — set GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NUXT_PUBLIC_GOOGLE_CLIENT_ID
+   ```
+
+   The `KEYCLOAK_CLIENT_SECRET` can be any string for local development (e.g., `dev-secret`).
+
+2. **Start all services:**
+
+   ```sh
+   docker compose up
+   ```
+
+   This starts Postgres (port 5432), Keycloak (port 8180), the Spring Boot backend (port 8080), and the Nuxt frontend (port 3000). Keycloak auto-imports the `marketplace` realm from `docker/keycloak/realm-export.json`.
+
+3. **Verify the stack is up:**
+   - Frontend: `http://localhost:3000`
+   - Backend Swagger UI: `http://localhost:8080/api/v1/swagger-ui.html`
+   - Keycloak Admin: `http://localhost:8180` (user: `admin`, password: `admin`)
+
+4. **Complete the manual quickstart verification:**
+
+   See [`specs/005-google-oauth-login/quickstart.md`](./specs/005-google-oauth-login/quickstart.md) for the full step-by-step walkthrough including the button login flow, One Tap, session revocation, and error scenarios.
+
+### Backend-only development
+
+To run the backend without Docker:
+
+```sh
+# Requires a local Postgres and Keycloak, or docker compose up postgres keycloak
+cd backend
+JAVA_HOME=$(asdf where java) ./gradlew bootRun --args='--spring.profiles.active=local'
+```
+
+The `local` profile disables cookie security flags and enables Swagger UI without auth.
+
+### Backend CI commands
+
+```sh
+cd backend
+JAVA_HOME=$(asdf where java) ./gradlew spotlessCheck   # formatting
+JAVA_HOME=$(asdf where java) ./gradlew test            # unit tests only
+JAVA_HOME=$(asdf where java) ./gradlew integrationTest # integration tests (requires Docker)
+```
+
 ## Further reading
 
 The full feature spec for this tooling lives at [`specs/004-code-quality-tooling/`](./specs/004-code-quality-tooling/), including a [quickstart walkthrough](./specs/004-code-quality-tooling/quickstart.md) you can use to verify your local environment end-to-end.
+
+The Google OAuth login spec lives at [`specs/005-google-oauth-login/`](./specs/005-google-oauth-login/).

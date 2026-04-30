@@ -38,3 +38,10 @@ test-results/
 
 # Lighthouse
 lighthouse-report.json
+
+# Backend (Gradle/Kotlin)
+backend/build/
+backend/.gradle/
+backend/out/
+backend/*.class
+backend/*.jar
