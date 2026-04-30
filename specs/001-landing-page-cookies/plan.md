@@ -4,6 +4,7 @@
 **Input**: Feature specification from `/specs/001-landing-page-cookies/spec.md`
 
 ## Summary
+
 This is a greenfield project. Implement a high-performance, SEO-ready landing page for the marketplace SaaS using **Nuxt 4**. The implementation will include a cookies consent banner to ensure compliance. The frontend will follow the Nuxt 4 directory structure, utilizing ShadCN Nuxt for the design system, Pinia for state management (limited to pages), and composables for business logic.
 
 ## Technical Context
@@ -22,7 +23,7 @@ This is a greenfield project. Implement a high-performance, SEO-ready landing pa
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 1. **Multi-Tenant Data Sovereignty**: N/A for this landing page.
 2. **Transactional Integrity & Commission Accuracy**: N/A.
@@ -31,8 +32,8 @@ This is a greenfield project. Implement a high-performance, SEO-ready landing pa
 5. **Auditability & Transparent Reporting**: N/A.
 6. **Mobile-First Design**: UI components must be verified on mobile breakpoints first. Use the default Tailwind CSS v4 breakpoints (CRITICAL):
 
-   | Prefix | Min Width | Media Query |
-   |--------|-----------|-------------|
+   | Prefix | Min Width      | Media Query               |
+   | ------ | -------------- | ------------------------- |
    | `sm`   | 40rem (640px)  | `@media (width >= 40rem)` |
    | `md`   | 48rem (768px)  | `@media (width >= 48rem)` |
    | `lg`   | 64rem (1024px) | `@media (width >= 64rem)` |
@@ -85,5 +86,5 @@ frontend/
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
 | Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| None | - | - |
+| --------- | ---------- | ------------------------------------ |
+| None      | -          | -                                    |

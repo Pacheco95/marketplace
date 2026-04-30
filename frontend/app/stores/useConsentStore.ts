@@ -14,7 +14,7 @@ function parseCookie(): ConsentRecord | null {
   try {
     const raw = document.cookie
       .split('; ')
-      .find(row => row.startsWith(`${COOKIE_KEY}=`))
+      .find((row) => row.startsWith(`${COOKIE_KEY}=`))
       ?.split('=')
       .slice(1)
       .join('=')

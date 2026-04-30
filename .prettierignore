@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build / generated output
+**/.nuxt/
+**/.output/
+**/dist/
+**/build/
+**/.cache/
+
+# Lockfiles
+**/bun.lock
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Auto-generated data
+frontend/i18n/locales/*.json
+
+# Reports & test artifacts
+frontend/lighthouse-report-*.json
+frontend/lighthouse-report.json
+frontend/playwright-report/
+frontend/test-results/
+coverage/
+
+# Vitest snapshots
+**/*.snap

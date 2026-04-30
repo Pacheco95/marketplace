@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@pinia/nuxt', '@nuxtjs/i18n', 'shadcn-nuxt'],
+  modules: ['@pinia/nuxt', '@nuxtjs/i18n', 'shadcn-nuxt', '@nuxt/eslint'],
   css: ['~/assets/css/main.css'],
   shadcn: {
     prefix: '',
@@ -18,8 +18,11 @@ export default defineNuxtConfig({
     vueI18n: './i18n/i18n.config.ts',
   },
   vite: {
-    plugins: [
-      (await import('@tailwindcss/vite')).default(),
-    ],
+    plugins: [(await import('@tailwindcss/vite')).default()],
+  },
+  eslint: {
+    config: {
+      typescript: true,
+    },
   },
 })

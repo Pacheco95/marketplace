@@ -1,0 +1,13 @@
+# git-blame-ignore-revs
+#
+# Commits listed here are ignored by `git blame` so that mechanical
+# rewrites (mass formatting, lockfile churn, etc.) do not obscure the
+# real authorship of surrounding lines.
+#
+# Configure your local git once with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+#
+# GitHub honors this file automatically.
+
+# chore: mass-format codebase via prettier (initial Prettier rollout)
+c30bbd464831a0d2cb8c159ab2677c7d864e5b2b
