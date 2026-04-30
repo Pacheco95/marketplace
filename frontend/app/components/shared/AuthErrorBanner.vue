@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { Alert, AlertDescription } from '~/components/ui/alert'
+import { Button } from '~/components/ui/button'
+import { X } from 'lucide-vue-next'
+
 defineProps<{
   message: string
 }>()
@@ -9,31 +13,16 @@ defineEmits<{
 </script>
 
 <template>
-  <div
-    v-if="message"
-    role="alert"
-    class="flex items-start justify-between gap-3 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-  >
-    <span>{{ message }} Please try again.</span>
-    <button
-      class="ml-auto shrink-0 rounded p-0.5 hover:bg-destructive/20 focus:outline-none focus:ring-2 focus:ring-destructive"
+  <Alert v-if="message" variant="destructive" class="flex items-start gap-3">
+    <AlertDescription class="flex-1"> {{ message }} Please try again. </AlertDescription>
+    <Button
+      variant="ghost"
+      size="icon"
+      class="-mr-1 -mt-1 h-7 w-7 shrink-0 text-destructive hover:bg-destructive/10 hover:text-destructive"
       :aria-label="'Dismiss error'"
       @click="$emit('dismiss')"
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-    </button>
-  </div>
+      <X class="h-4 w-4" />
+    </Button>
+  </Alert>
 </template>

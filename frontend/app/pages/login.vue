@@ -2,6 +2,8 @@
 import { useAuthStore } from '~/stores/useAuthStore'
 import { useAuth } from '~/composables/useAuth'
 import { useGoogleOneTap } from '~/composables/useGoogleOneTap'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { Button } from '~/components/ui/button'
 
 const { t } = useI18n()
 const store = useAuthStore()
@@ -54,24 +56,21 @@ function dismissError() {
 
 <template>
   <div class="flex min-h-screen items-center justify-center bg-background px-4">
-    <div class="w-full max-w-sm space-y-6 rounded-lg border bg-card p-8 shadow-sm">
-      <div class="space-y-2 text-center">
-        <h1 class="text-2xl font-bold tracking-tight">
+    <Card class="w-full max-w-sm">
+      <CardHeader class="space-y-1 text-center">
+        <CardTitle class="text-2xl">
           {{ t('auth.login.title') }}
-        </h1>
-        <p class="text-sm text-muted-foreground">
+        </CardTitle>
+        <CardDescription>
           {{ t('auth.login.subtitle') }}
-        </p>
-      </div>
-
-      <AuthErrorBanner v-if="errorMessage" :message="errorMessage" @dismiss="dismissError" />
-
-      <button
-        class="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-        @click="login"
-      >
-        {{ t('auth.login.button') }}
-      </button>
-    </div>
+        </CardDescription>
+      </CardHeader>
+      <CardContent class="space-y-4">
+        <AuthErrorBanner v-if="errorMessage" :message="errorMessage" @dismiss="dismissError" />
+        <Button class="w-full" @click="login">
+          {{ t('auth.login.button') }}
+        </Button>
+      </CardContent>
+    </Card>
   </div>
 </template>

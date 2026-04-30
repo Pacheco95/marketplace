@@ -1,10 +1,10 @@
 <!--
 Sync Impact Report
-- Version change: 1.2.0 → 1.3.0
+- Version change: 1.3.0 → 1.4.0
 - List of modified principles:
   - None (Renamed/Redefined)
 - Added sections:
-  - VIII. Code Quality Tooling Across the Whole Project (Principle)
+  - IX. shadcn-vue as the Canonical UI Component Library (Principle)
 - Removed sections: None
 - Templates requiring updates:
   - .specify/templates/plan-template.md (✅ no change required — uses generic Constitution Check gate)
@@ -57,6 +57,11 @@ The platform MUST be built to support multiple languages and locales from the st
 Automated code quality tooling — a single canonical formatter, a single canonical linter, and the unit, integration, and end-to-end test suites — MUST be applied uniformly across the entire repository, not selectively per workspace, contributor, or file. Formatting and linting MUST be enforced both locally (pre-commit) and in CI on every pull request. Tests MUST be enforced in CI on every pull request, and the fast suites (unit and integration) SHOULD additionally be enforced locally (pre-push). Generated output, vendored code, and lockfiles MAY be excluded only via explicit, reviewed ignore lists. No pull request MAY merge while any required quality check is failing, and bypass mechanisms (e.g., `--no-verify`) MUST NOT be a substitute for fixing violations.
 **Rationale**: Uniform enforcement prevents style drift, lint debt, and behavioral regressions from accumulating in unmonitored corners of the codebase, keeps reviewer attention on substance rather than mechanics, and gives every contributor the same reproducible quality bar from day one.
 
+### IX. shadcn-vue as the Canonical UI Component Library
+
+All frontend UI MUST be built using [shadcn-vue](https://www.shadcn-vue.com/) components. Raw HTML elements (`<button>`, `<input>`, `<div>` used as interactive controls, etc.) MUST NOT be used where an equivalent shadcn-vue component exists. New shadcn components are added via `bunx shadcn-vue@latest add <component>` and committed alongside the feature that introduces them.
+**Rationale**: Consistent design system, accessible defaults, and zero bespoke CSS maintenance for common UI primitives.
+
 ## Security & Compliance
 
 The platform must adhere to OWASP Top 10 security standards. All sensitive data must be encrypted at rest and in transit. Payment processing must comply with PCI-DSS standards.
@@ -69,4 +74,4 @@ All changes must be submitted via Pull Requests. No PR can be merged without at 
 
 This Constitution supersedes all other practices. Amendments require a formal review and a version bump. All PRs must verify compliance with these principles. Use `.specify/memory/constitution.md` as the source of truth.
 
-**Version**: 1.3.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-30
+**Version**: 1.4.0 | **Ratified**: 2026-04-29 | **Last Amended**: 2026-04-30
