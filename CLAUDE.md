@@ -2,6 +2,6 @@
 
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan at
-`specs/004-code-quality-tooling/plan.md`.
+`specs/005-google-oauth-login/plan.md`.
 
 <!-- SPECKIT END -->
