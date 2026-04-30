@@ -35,3 +35,5 @@ test-results/
 
 # Lighthouse
 lighthouse-report.json
+
+frontend/coveragealighthouse-report*.json

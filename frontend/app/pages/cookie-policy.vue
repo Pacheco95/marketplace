@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { COOKIE_POLICY_VERSION, COOKIE_POLICY_UPDATED_AT } from '~/config/cookiePolicy'
+import {
+  COOKIE_POLICY_VERSION,
+  COOKIE_POLICY_UPDATED_AT,
+} from '~/config/cookiePolicy'
 
 const { t } = useI18n()
 
@@ -14,7 +17,10 @@ useSeoMeta({
 
 <template>
   <div class="container mx-auto px-4 py-12 max-w-3xl">
-    <NuxtLink to="/" class="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8">
+    <NuxtLink
+      to="/"
+      class="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8"
+    >
       &larr; {{ t('cookiePolicy.backLink') }}
     </NuxtLink>
 
@@ -25,18 +31,30 @@ useSeoMeta({
     </p>
 
     <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-3">{{ t('cookiePolicy.sections.whatWeCollect.title') }}</h2>
-      <p class="text-muted-foreground leading-relaxed">{{ t('cookiePolicy.sections.whatWeCollect.body') }}</p>
+      <h2 class="text-xl font-semibold mb-3">
+        {{ t('cookiePolicy.sections.whatWeCollect.title') }}
+      </h2>
+      <p class="text-muted-foreground leading-relaxed">
+        {{ t('cookiePolicy.sections.whatWeCollect.body') }}
+      </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-3">{{ t('cookiePolicy.sections.purpose.title') }}</h2>
-      <p class="text-muted-foreground leading-relaxed">{{ t('cookiePolicy.sections.purpose.body') }}</p>
+      <h2 class="text-xl font-semibold mb-3">
+        {{ t('cookiePolicy.sections.purpose.title') }}
+      </h2>
+      <p class="text-muted-foreground leading-relaxed">
+        {{ t('cookiePolicy.sections.purpose.body') }}
+      </p>
     </section>
 
     <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-3">{{ t('cookiePolicy.sections.retention.title') }}</h2>
-      <p class="text-muted-foreground leading-relaxed">{{ t('cookiePolicy.sections.retention.body') }}</p>
+      <h2 class="text-xl font-semibold mb-3">
+        {{ t('cookiePolicy.sections.retention.title') }}
+      </h2>
+      <p class="text-muted-foreground leading-relaxed">
+        {{ t('cookiePolicy.sections.retention.body') }}
+      </p>
     </section>
   </div>
 </template>

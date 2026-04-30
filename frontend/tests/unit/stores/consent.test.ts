@@ -5,7 +5,11 @@ import { COOKIE_POLICY_VERSION } from '~/config/cookiePolicy'
 const COOKIE_KEY = 'cookie_consent'
 
 function setCookieRecord(version: string) {
-  const record = JSON.stringify({ accepted: true, timestamp: new Date().toISOString(), version })
+  const record = JSON.stringify({
+    accepted: true,
+    timestamp: new Date().toISOString(),
+    version,
+  })
   document.cookie = `${COOKIE_KEY}=${encodeURIComponent(record)}; path=/`
 }
 

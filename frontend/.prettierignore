@@ -1,0 +1,16 @@
+# Build artifacts
+.output/
+.nuxt/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Generated files
+coverage/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+lighthouse-report*.json

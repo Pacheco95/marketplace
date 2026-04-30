@@ -7,10 +7,10 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Configure linting (ESLint) and formatting (Prettier) tools in frontend/
-- [ ] T002 Setup Git hooks (Husky, lint-staged) for automated checks in frontend/
-- [ ] T003 Setup CI pipeline (GitHub Actions) with test coverage enforcement (>= 90%) in .github/workflows/
-- [ ] T004 Add common scripts (test, coverage, lint, format) to frontend/package.json
+- [X] T001 Configure linting (ESLint) and formatting (Prettier) tools in frontend/
+- [X] T002 Setup Git hooks (Husky, lint-staged) for automated checks in frontend/
+- [X] T003 Setup CI pipeline (GitHub Actions) with test coverage enforcement (>= 90%) in .github/workflows/
+- [X] T004 Add common scripts (test, coverage, lint, format) to frontend/package.json
 
 ---
 
@@ -20,10 +20,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 [P] Create .eslintrc.json with Nuxt/Vue/TypeScript recommended rules
-- [ ] T006 [P] Create .prettierrc with project-specific formatting rules
-- [ ] T007 [P] Initialize Husky hooks and configure lint-staged for frontend/
-- [ ] T008 [P] Define CI workflow in .github/workflows/ci.yml with coverage validation
+- [X] T005 [P] Create .eslintrc.json with Nuxt/Vue/TypeScript recommended rules
+- [X] T006 [P] Create .prettierrc with project-specific formatting rules
+- [X] T007 [P] Initialize Husky hooks and configure lint-staged for frontend/
+- [X] T008 [P] Define CI workflow in .github/workflows/ci.yml with coverage validation
 
 **Checkpoint**: Foundation ready - CI and local quality tools are functional
 

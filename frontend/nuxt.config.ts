@@ -10,7 +10,9 @@ export default defineNuxtConfig({
     componentDir: './app/components/ui',
   },
   i18n: {
-    locales: [{ code: 'en', language: 'en-US', name: 'English', file: 'en.json' }],
+    locales: [
+      { code: 'en', language: 'en-US', name: 'English', file: 'en.json' },
+    ],
     defaultLocale: 'en',
     lazy: true,
     langDir: 'locales',
@@ -18,8 +20,6 @@ export default defineNuxtConfig({
     vueI18n: './i18n/i18n.config.ts',
   },
   vite: {
-    plugins: [
-      (await import('@tailwindcss/vite')).default(),
-    ],
+    plugins: [(await import('@tailwindcss/vite')).default()],
   },
 })

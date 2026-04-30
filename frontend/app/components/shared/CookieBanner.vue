@@ -10,7 +10,7 @@ function parseCookie() {
   try {
     const raw = document.cookie
       .split('; ')
-      .find(row => row.startsWith(`${COOKIE_KEY}=`))
+      .find((row) => row.startsWith(`${COOKIE_KEY}=`))
       ?.split('=')
       .slice(1)
       .join('=')
@@ -24,11 +24,17 @@ const hasConsented = ref(false)
 
 onMounted(() => {
   const record = parseCookie()
-  hasConsented.value = !!(record?.accepted && record.version === COOKIE_POLICY_VERSION)
+  hasConsented.value = !!(
+    record?.accepted && record.version === COOKIE_POLICY_VERSION
+  )
 })
 
 function accept() {
-  const record = { accepted: true, timestamp: new Date().toISOString(), version: COOKIE_POLICY_VERSION }
+  const record = {
+    accepted: true,
+    timestamp: new Date().toISOString(),
+    version: COOKIE_POLICY_VERSION,
+  }
   document.cookie = `${COOKIE_KEY}=${encodeURIComponent(JSON.stringify(record))}; max-age=${60 * 60 * 24 * 365}; path=/; SameSite=Lax`
   hasConsented.value = true
 }
@@ -42,10 +48,15 @@ function accept() {
       role="banner"
       aria-label="Cookie consent"
     >
-      <div class="container mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div
+        class="container mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+      >
         <p class="text-sm text-foreground">
           {{ t('cookieBanner.message') }}
-          <NuxtLink to="/cookie-policy" class="underline hover:text-primary ml-1">
+          <NuxtLink
+            to="/cookie-policy"
+            class="underline hover:text-primary ml-1"
+          >
             {{ t('cookieBanner.policyLink') }}
           </NuxtLink>
         </p>
@@ -60,7 +71,9 @@ function accept() {
 <style scoped>
 .cookie-banner-enter-active,
 .cookie-banner-leave-active {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 .cookie-banner-enter-from,
 .cookie-banner-leave-to {
