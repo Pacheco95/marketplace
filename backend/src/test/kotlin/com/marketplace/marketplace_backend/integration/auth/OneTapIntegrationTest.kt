@@ -1,8 +1,10 @@
 package com.marketplace.marketplace_backend.integration.auth
 
 import com.marketplace.marketplace_backend.TestcontainersConfiguration
+import com.marketplace.marketplace_backend.domain.User
 import com.marketplace.marketplace_backend.infrastructure.keycloak.KeycloakClient
 import com.marketplace.marketplace_backend.infrastructure.keycloak.KeycloakTokenResponse
+import com.marketplace.marketplace_backend.service.UserService
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
@@ -17,6 +19,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 import java.util.Base64
+import java.util.UUID
 
 @Tag("integration")
 @SpringBootTest
@@ -29,11 +32,19 @@ class OneTapIntegrationTest {
     @MockitoBean
     private lateinit var keycloakClient: KeycloakClient
 
+    @MockitoBean
+    private lateinit var userService: UserService
+
     private fun buildJwt(claims: Map<String, String>): String {
         val header = Base64.getUrlEncoder().encodeToString("""{"alg":"RS256"}""".toByteArray())
         val payload =
             Base64.getUrlEncoder().encodeToString(
-                claims.entries.joinToString(",", "{", "}") { "\"${it.key}\":\"${it.value}\"" }.toByteArray(),
+                claims.entries
+                    .joinToString(",", "{", "}") { (k, v) ->
+                        // Emit numeric values without quotes so regex-based validators work
+                        val encoded = if (v.toLongOrNull() != null) v else "\"$v\""
+                        "\"$k\":$encoded"
+                    }.toByteArray(),
             )
         return "$header.$payload.fakesig"
     }
@@ -65,6 +76,9 @@ class OneTapIntegrationTest {
                 mapOf("sub" to "google-sub", "email" to "user@test.com", "aud" to "test-client-id", "exp" to futureExp),
             )
         val accessToken = buildJwt(mapOf("sub" to "kc-sub", "email" to "user@test.com", "name" to "Test User"))
+        val fakeUser =
+            User(id = UUID.randomUUID(), keycloakSubject = "kc-sub", email = "user@test.com", displayName = "Test User")
+        whenever(userService.upsertFromTokenClaims(any())).thenReturn(fakeUser)
         whenever(keycloakClient.exchangeGoogleToken(any())).thenReturn(
             KeycloakTokenResponse(
                 accessToken = accessToken,

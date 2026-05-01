@@ -28,6 +28,8 @@ open class SecurityConfig(
                         "/api/v1/auth/login",
                         "/api/v1/auth/callback",
                         "/api/v1/auth/one-tap",
+                        "/api/v1/auth/refresh",
+                        "/api/v1/auth/logout",
                         "/api/v1/api-docs/**",
                         "/api/v1/swagger-ui/**",
                         "/api/v1/swagger-ui.html",
