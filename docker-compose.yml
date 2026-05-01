@@ -18,7 +18,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.6.1
-    command: start-dev --import-realm --features=token-exchange
+    command: start-dev --import-realm --features=token-exchange:v1,admin-fine-grained-authz:v1
     environment:
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
@@ -36,6 +36,30 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'exec 3<>/dev/tcp/localhost/8080 && printf "GET /realms/marketplace HTTP/1.0\r\nHost: localhost\r\n\r\n" >&3 && grep -q "200 OK" <&3',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+      start_period: 30s
+
+  keycloak-setup:
+    image: quay.io/keycloak/keycloak:26.6.1
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    volumes:
+      - ./docker/keycloak/configure-exchange.sh:/configure-exchange.sh
+    entrypoint: ['/bin/bash', '/configure-exchange.sh']
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    restart: 'no'
 
   backend:
     build:
@@ -54,8 +78,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      keycloak:
-        condition: service_started
+      keycloak-setup:
+        condition: service_completed_successfully
 
   frontend:
     build:
