@@ -20,6 +20,25 @@ declare global {
   }
 }
 
+function waitForGoogleScript(timeoutMs = 10000): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (window.google) {
+      resolve(true)
+      return
+    }
+    const start = Date.now()
+    const interval = setInterval(() => {
+      if (window.google) {
+        clearInterval(interval)
+        resolve(true)
+      } else if (Date.now() - start >= timeoutMs) {
+        clearInterval(interval)
+        resolve(false)
+      }
+    }, 100)
+  })
+}
+
 export function useGoogleOneTap() {
   const store = useAuthStore()
   const config = useRuntimeConfig()
@@ -40,8 +59,9 @@ export function useGoogleOneTap() {
     }
   }
 
-  function prompt() {
-    if (!window.google) return
+  async function prompt() {
+    const ready = await waitForGoogleScript()
+    if (!ready || !window.google) return
 
     if (!initialized) {
       window.google.accounts.id.initialize({

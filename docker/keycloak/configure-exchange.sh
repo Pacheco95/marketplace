@@ -30,12 +30,12 @@ $KCADM update identity-provider/instances/google \
 
 echo "[keycloak-setup] Setting Identity Provider Redirector to REQUIRED..."
 IDP_REDIRECTOR_ID=$($KCADM get authentication/flows/browser/executions \
-    -r "$REALM" | grep -B1 '"Identity Provider Redirector"' | uuid)
+    -r "$REALM" | grep -B2 '"Identity Provider Redirector"' | uuid || true)
 if [ -n "$IDP_REDIRECTOR_ID" ]; then
     $KCADM update "authentication/flows/browser/executions" \
         -r "$REALM" \
         -b "{\"id\":\"$IDP_REDIRECTOR_ID\",\"requirement\":\"REQUIRED\",\"displayName\":\"Identity Provider Redirector\",\"level\":0,\"index\":2}"
-    echo "[keycloak-setup]   IdP Redirector set to REQUIRED — login page bypassed with kc_idp_hint."
+    echo "[keycloak-setup]   IdP Redirector set to REQUIRED — kc_idp_hint bypasses login page."
 else
     echo "[keycloak-setup]   WARNING: Could not locate IdP Redirector execution."
 fi
@@ -65,7 +65,7 @@ echo "[keycloak-setup]   policy id: $POLICY"
 
 echo "[keycloak-setup] Locating token-exchange scope permission..."
 PERM=$($KCADM get "clients/$REALM_MGMT/authz/resource-server/permission" \
-    -r "$REALM" | grep -B1 "token-exchange.permission.idp" | uuid)
+    -r "$REALM" | grep -B1 "token-exchange.permission.idp" | uuid || true)
 echo "[keycloak-setup]   permission id: $PERM"
 
 echo "[keycloak-setup] Granting marketplace-backend the token-exchange permission..."
