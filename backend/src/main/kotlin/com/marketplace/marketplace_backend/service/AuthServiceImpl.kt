@@ -41,6 +41,7 @@ open class AuthServiceImpl(
             "&client_id=$clientId" +
             "&redirect_uri=${java.net.URLEncoder.encode(callbackUri, "UTF-8")}" +
             "&scope=openid+email+profile" +
+            "&kc_idp_hint=google" +
             "&state=$state"
 
     override fun handleCallback(

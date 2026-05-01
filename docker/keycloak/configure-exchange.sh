@@ -20,6 +20,26 @@ done
 
 echo "[keycloak-setup] Authenticated."
 
+echo "[keycloak-setup] Configuring Google IDP credentials..."
+$KCADM update identity-provider/instances/google \
+    -r "$REALM" \
+    -s "config.clientId=${GOOGLE_CLIENT_ID}" \
+    -s "config.clientSecret=${GOOGLE_CLIENT_SECRET}" \
+    -s "config.useJwksUrl=true" \
+    -s "config.syncMode=FORCE"
+
+echo "[keycloak-setup] Setting Identity Provider Redirector to REQUIRED..."
+IDP_REDIRECTOR_ID=$($KCADM get authentication/flows/browser/executions \
+    -r "$REALM" | grep -B1 '"Identity Provider Redirector"' | uuid)
+if [ -n "$IDP_REDIRECTOR_ID" ]; then
+    $KCADM update "authentication/flows/browser/executions" \
+        -r "$REALM" \
+        -b "{\"id\":\"$IDP_REDIRECTOR_ID\",\"requirement\":\"REQUIRED\",\"displayName\":\"Identity Provider Redirector\",\"level\":0,\"index\":2}"
+    echo "[keycloak-setup]   IdP Redirector set to REQUIRED — login page bypassed with kc_idp_hint."
+else
+    echo "[keycloak-setup]   WARNING: Could not locate IdP Redirector execution."
+fi
+
 echo "[keycloak-setup] Enabling token-exchange permissions on Google IDP..."
 $KCADM update identity-provider/instances/google/management/permissions \
     -r "$REALM" -s enabled=true
@@ -53,22 +73,5 @@ $KCADM update "clients/$REALM_MGMT/authz/resource-server/permission/scope/$PERM"
     -r "$REALM" \
     -s "policies=[\"$POLICY\"]" \
     -s decisionStrategy=UNANIMOUS
-
-echo "[keycloak-setup] Configuring Identity Provider Redirector to auto-redirect to Google..."
-# Setting defaultProvider=google on the IdP Redirector execution makes Keycloak
-# skip its own login page entirely and send the user straight to Google.
-# This is simpler and more reliable than disabling individual form authenticators.
-IDP_REDIRECTOR_ID=$($KCADM get authentication/flows/browser/executions \
-    -r "$REALM" | grep -B1 '"Identity Provider Redirector"' | uuid)
-if [ -n "$IDP_REDIRECTOR_ID" ]; then
-    $KCADM create "authentication/executions/$IDP_REDIRECTOR_ID/config" \
-        -r "$REALM" \
-        -s alias=google-auto-redirect \
-        -s 'config.defaultProvider=google' 2>/dev/null \
-        || echo "[keycloak-setup]   Auto-redirect config already exists — skipping."
-    echo "[keycloak-setup]   Google set as default IdP — login page bypassed."
-else
-    echo "[keycloak-setup]   WARNING: Could not locate IdP Redirector execution — skipping."
-fi
 
 echo "[keycloak-setup] Done."
