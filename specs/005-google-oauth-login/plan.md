@@ -182,17 +182,17 @@ specs/005-google-oauth-login/
 
 See [research.md](./research.md). Key decisions:
 
-| Topic           | Decision                                                                          |
-| --------------- | --------------------------------------------------------------------------------- |
-| IAM             | Keycloak 26.6.1, Google as Identity Provider                                      |
-| Token transport | HTTP-only Secure cookies (access 15 min / refresh 30 days, rotated)               |
-| One Tap flow    | Google GSI on frontend → POST to backend → Keycloak Token Exchange                |
-| Button login    | OIDC auth code flow: frontend → backend → Keycloak → callback → cookies           |
-| Frontend auth   | Manual Pinia store + Nuxt middleware (no @nuxtjs/auth-next — Nuxt 4 incompatible) |
-| Error format    | RFC 7807 ProblemDetail + UUID instance (traceable incident ID)                    |
-| i18n errors     | Spring MessageSource, Accept-Language resolution                                  |
-| Formatting      | Spotless (ktlint) for backend; existing Prettier for frontend                     |
-| Migrations      | `V2026_04_30T00_00_00__description.sql` (UTC ISO 8601, underscores)               |
+| Topic           | Decision                                                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| IAM             | Keycloak 26.6.1, Google as Identity Provider                                                                                    |
+| Token transport | HTTP-only Secure cookies (access 15 min / refresh 30 days, rotated)                                                             |
+| One Tap flow    | Google GSI on frontend → POST to backend → Keycloak Token Exchange                                                              |
+| Button login    | OIDC auth code flow: frontend → backend → Keycloak → callback → cookies                                                         |
+| Frontend auth   | Manual Pinia store + Nuxt middleware (no @nuxtjs/auth-next — Nuxt 4 incompatible)                                               |
+| Error format    | RFC 7807 ProblemDetail + UUID instance (traceable incident ID)                                                                  |
+| i18n errors     | Spring MessageSource, Accept-Language resolution                                                                                |
+| Formatting      | Spotless (ktlint) for backend; existing Prettier for frontend                                                                   |
+| Migrations      | `V2026_04_30_00_00_00__description.sql` (UTC datetime, underscores only — `T` separator is not valid in Flyway version strings) |
 
 ## Phase 1: Design & Contracts
 
@@ -294,6 +294,16 @@ New jobs added to `.github/workflows/pull-request.yml`:
 | `backend-format`      | always  | `actions/setup-java@v4` (Java 25) + Gradle cache + `./gradlew spotlessCheck` |
 | `backend-unit`        | always  | same setup + `./gradlew test`                                                |
 | `backend-integration` | always  | same setup + Docker (for TestContainers) + `./gradlew integrationTest`       |
+
+## Implementation Notes (Post-Build)
+
+### Flyway + PostgreSQL compatibility
+
+**PostgreSQL version**: `postgres:17` is required. Flyway 11.14.1 (the version managed by Spring Boot 4.0.6) does not yet support PostgreSQL 18.
+
+**`flyway-database-postgresql` module**: Must be declared explicitly in `build.gradle.kts`. Flyway 10+ split database-specific support into separate modules; `spring-boot-starter-flyway` pulls in `flyway-core` only, which cannot connect to PostgreSQL without this additional module.
+
+**Migration filename format**: Flyway version strings accept only digits and `.`/`_` as separators. The ISO 8601 `T` between date and time (`V2026_04_30T00_00_00`) causes the file to be silently skipped. Use `V2026_04_30_00_00_00` (replace `T` with `_`).
 
 ## Complexity Tracking
 
