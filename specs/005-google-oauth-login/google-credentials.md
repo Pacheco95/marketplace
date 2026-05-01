@@ -50,13 +50,21 @@ Before creating credentials you must configure what Google will show users durin
 
    This is required for Google One Tap to work from the Nuxt frontend.
 
-6. Under **Authorized redirect URIs** click **+ Add URI** and add:
+6. Under **Authorized redirect URIs** add **two** entries:
+
+   **Entry 1** — Keycloak's broker callback (Google → Keycloak):
+
+   ```
+   http://localhost:8180/realms/marketplace/broker/google/endpoint
+   ```
+
+   **Entry 2** — Backend callback (Keycloak → Spring Boot):
 
    ```
    http://localhost:8080/api/v1/auth/callback
    ```
 
-   This is the backend callback endpoint that Keycloak redirects to after the authorization code flow.
+   Both are required. The first is where Google sends the auth code after the user consents; Keycloak then exchanges it and redirects to the second.
 
 7. Click **Create**.
 
@@ -105,10 +113,10 @@ See [quickstart.md](./quickstart.md) for the full verification walkthrough.
 
 ## Troubleshooting
 
-| Symptom                                         | Cause                                                                                         | Fix                                                                                                       |
-| ----------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `redirect_uri_mismatch` error from Google       | The redirect URI in the auth request doesn't match the one registered in Google Cloud Console | Confirm `http://localhost:8080/api/v1/auth/callback` is listed under Authorized redirect URIs             |
-| `Access blocked: This app's request is invalid` | OAuth consent screen not configured, or you are not listed as a test user                     | Add your account under **OAuth consent screen → Test users**                                              |
-| One Tap popup never appears                     | JavaScript origin not registered, or browser is blocking third-party cookies                  | Confirm `http://localhost:3000` is listed under Authorized JavaScript origins; try in an incognito window |
-| `400: invalid_client` from Keycloak             | `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` in `.env` is wrong or missing                    | Double-check the values against the Google Cloud Console credentials page                                 |
-| Keycloak fails to import the realm              | `.env` values are empty — Docker Compose substitutes blank strings                            | Ensure `.env` exists and all four variables are populated before running `docker compose up`              |
+| Symptom                                         | Cause                                                                                         | Fix                                                                                                                                                                           |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `redirect_uri_mismatch` error from Google       | The redirect URI in the auth request doesn't match the one registered in Google Cloud Console | Confirm **both** `http://localhost:8180/realms/marketplace/broker/google/endpoint` and `http://localhost:8080/api/v1/auth/callback` are listed under Authorized redirect URIs |
+| `Access blocked: This app's request is invalid` | OAuth consent screen not configured, or you are not listed as a test user                     | Add your account under **OAuth consent screen → Test users**                                                                                                                  |
+| One Tap popup never appears                     | JavaScript origin not registered, or browser is blocking third-party cookies                  | Confirm `http://localhost:3000` is listed under Authorized JavaScript origins; try in an incognito window                                                                     |
+| `400: invalid_client` from Keycloak             | `GOOGLE_CLIENT_ID` or `GOOGLE_CLIENT_SECRET` in `.env` is wrong or missing                    | Double-check the values against the Google Cloud Console credentials page                                                                                                     |
+| Keycloak fails to import the realm              | `.env` values are empty — Docker Compose substitutes blank strings                            | Ensure `.env` exists and all four variables are populated before running `docker compose up`                                                                                  |
