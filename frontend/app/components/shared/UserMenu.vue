@@ -11,6 +11,7 @@ import {
 } from '~/components/ui/dropdown-menu'
 import { Avatar, AvatarImage, AvatarFallback } from '~/components/ui/avatar'
 import { Button } from '~/components/ui/button'
+import { UserCircle } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const store = useAuthStore()
@@ -18,14 +19,18 @@ const { login, logout } = useAuth()
 </script>
 
 <template>
-  <DropdownMenu v-if="store.isAuthenticated">
+  <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button
         variant="ghost"
         class="h-10 w-10 rounded-full p-0"
-        :aria-label="t('auth.menu.welcome', { name: store.displayName })"
+        :aria-label="
+          store.isAuthenticated
+            ? t('auth.menu.welcome', { name: store.displayName })
+            : t('auth.menu.login')
+        "
       >
-        <Avatar class="h-9 w-9">
+        <Avatar v-if="store.isAuthenticated" class="h-9 w-9">
           <AvatarImage
             v-if="store.profilePictureUrl"
             :src="store.profilePictureUrl"
@@ -33,25 +38,30 @@ const { login, logout } = useAuth()
           />
           <AvatarFallback>{{ store.initials }}</AvatarFallback>
         </Avatar>
+        <UserCircle v-else class="h-6 w-6 text-muted-foreground" />
       </Button>
     </DropdownMenuTrigger>
+
     <DropdownMenuContent align="end" class="w-48">
-      <DropdownMenuLabel>
-        {{ t('auth.menu.welcome', { name: store.displayName }) }}
-      </DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem as-child>
-        <NuxtLink to="/profile">
-          {{ t('auth.menu.profile') }}
-        </NuxtLink>
-      </DropdownMenuItem>
-      <DropdownMenuItem @click="logout">
-        {{ t('auth.menu.logout') }}
-      </DropdownMenuItem>
+      <template v-if="store.isAuthenticated">
+        <DropdownMenuLabel>
+          {{ t('auth.menu.welcome', { name: store.displayName }) }}
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem as-child>
+          <NuxtLink to="/profile">
+            {{ t('auth.menu.profile') }}
+          </NuxtLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem @click="logout">
+          {{ t('auth.menu.logout') }}
+        </DropdownMenuItem>
+      </template>
+      <template v-else>
+        <DropdownMenuItem @click="login">
+          {{ t('auth.menu.login') }}
+        </DropdownMenuItem>
+      </template>
     </DropdownMenuContent>
   </DropdownMenu>
-
-  <Button v-else variant="outline" size="sm" @click="login">
-    {{ t('auth.menu.login') }}
-  </Button>
 </template>
