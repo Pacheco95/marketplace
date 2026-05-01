@@ -51,5 +51,29 @@
     "description": "We charge a flat commission on each successful transaction — no hidden fees, no monthly charges.",
     "rate": "5% per transaction",
     "note": "Commission is deducted automatically at the time of sale."
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to Marketplace",
+      "subtitle": "Use your Google account to get started.",
+      "button": "Login with Google"
+    },
+    "menu": {
+      "welcome": "Welcome, {name}",
+      "profile": "Profile",
+      "logout": "Log out",
+      "login": "Login with Google"
+    },
+    "profile": {
+      "welcome": "Welcome, {name}",
+      "subline": "Manage your account and preferences."
+    },
+    "error": {
+      "auth_failed": "Sign-in failed. Please try again.",
+      "session_expired": "Your session has expired. Please log in again.",
+      "google_credential_invalid": "Google credential is invalid or expired. Please try again.",
+      "token_exchange_failed": "Unable to complete sign-in. Please try again.",
+      "generic": "An error occurred during sign-in. Please try again."
+    }
   }
 }

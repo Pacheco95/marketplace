@@ -1,0 +1,12 @@
+root = true
+
+[*.{kt,kts}]
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+
+# Suppress package-name lint: Spring Initializr generated marketplace_backend
+# package name with underscore; renaming would require relocating all source files.
+[*.{kt,kts}]
+ktlint_standard_package-name = disabled

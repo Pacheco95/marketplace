@@ -1,1 +1,3 @@
-{ "feature_directory": "specs/004-code-quality-tooling" }
+{
+  "feature_directory": "specs/005-google-oauth-login"
+}

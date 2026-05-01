@@ -1,2 +1,7 @@
 bun run test:unit
 bun run test:integration
+
+# Run backend unit tests only when backend files have changed
+if git diff --name-only HEAD@{push} HEAD 2>/dev/null | grep -q "^backend/"; then
+  cd backend && ./gradlew test --no-daemon
+fi
