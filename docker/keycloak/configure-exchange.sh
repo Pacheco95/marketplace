@@ -54,4 +54,16 @@ $KCADM update "clients/$REALM_MGMT/authz/resource-server/permission/scope/$PERM"
     -s "policies=[\"$POLICY\"]" \
     -s decisionStrategy=UNANIMOUS
 
-echo "[keycloak-setup] Done. One Tap token exchange is configured."
+echo "[keycloak-setup] Disabling username/password form in browser flow..."
+FORMS_ID=$($KCADM get authentication/flows/browser/executions \
+    -r "$REALM" | grep -B1 '"forms"' | uuid)
+if [ -n "$FORMS_ID" ]; then
+    $KCADM update "authentication/flows/browser/executions" \
+        -r "$REALM" \
+        -b "{\"id\":\"$FORMS_ID\",\"requirement\":\"DISABLED\",\"displayName\":\"forms\",\"level\":0,\"index\":4}"
+    echo "[keycloak-setup]   forms execution disabled — only Google login shown."
+else
+    echo "[keycloak-setup]   WARNING: Could not locate forms execution — skipping."
+fi
+
+echo "[keycloak-setup] Done."
