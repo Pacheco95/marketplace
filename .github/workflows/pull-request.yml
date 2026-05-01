@@ -56,6 +56,7 @@ jobs:
           restore-keys: |
             bun-${{ runner.os }}-
       - run: bun install --frozen-lockfile
+      - run: bun --cwd=frontend run postinstall
       - run: bun run lint
 
   unit:
