@@ -72,6 +72,7 @@ services:
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://keycloak:8080/realms/marketplace
       APP_FRONTEND_BASE_URL: http://localhost:3000
       APP_CORS_ALLOWED_ORIGIN: http://localhost:3000
+      APP_KEYCLOAK_PUBLIC_URL: http://localhost:8180
       GOOGLE_JWKS_URI: https://www.googleapis.com/oauth2/v3/certs
     ports:
       - '8080:8080'

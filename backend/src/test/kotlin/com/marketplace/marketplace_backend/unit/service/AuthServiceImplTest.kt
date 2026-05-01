@@ -46,6 +46,7 @@ class AuthServiceImplTest {
                 clientId = "marketplace-backend",
                 frontendBaseUrl = "http://localhost:3000",
                 backendBaseUrl = "http://localhost:8080",
+                keycloakPublicUrl = "http://localhost:8180",
                 cookieSecure = false,
                 googleJwksUri = "http://localhost:9999/certs",
             )

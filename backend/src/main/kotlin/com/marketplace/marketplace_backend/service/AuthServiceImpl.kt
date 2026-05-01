@@ -26,6 +26,8 @@ open class AuthServiceImpl(
     private val frontendBaseUrl: String,
     @Value("\${app.backend.base-url:http://localhost:8080}")
     private val backendBaseUrl: String,
+    @Value("\${app.keycloak.public-url:http://localhost:8180}")
+    private val keycloakPublicUrl: String,
     @Value("\${app.cookie.secure:true}")
     private val cookieSecure: Boolean,
     @Value("\${google.jwks-uri:https://www.googleapis.com/oauth2/v3/certs}")
@@ -34,7 +36,7 @@ open class AuthServiceImpl(
     private val callbackUri get() = "$backendBaseUrl/api/v1/auth/callback"
 
     override fun buildAuthorizationRedirectUrl(state: String): String =
-        "$issuerUri/protocol/openid-connect/auth" +
+        "$keycloakPublicUrl/realms/marketplace/protocol/openid-connect/auth" +
             "?response_type=code" +
             "&client_id=$clientId" +
             "&redirect_uri=${java.net.URLEncoder.encode(callbackUri, "UTF-8")}" +
