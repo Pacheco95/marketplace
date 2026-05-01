@@ -9,7 +9,12 @@ export default defineNuxtConfig({
   future: { compatibilityVersion: 4 },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@pinia/nuxt', '@nuxtjs/i18n', 'shadcn-nuxt', '@nuxt/eslint'],
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/i18n',
+    'shadcn-nuxt',
+    ...(process.env.NODE_ENV !== 'production' ? ['@nuxt/eslint'] : []),
+  ],
   css: ['~/assets/css/main.css'],
   shadcn: {
     prefix: '',
