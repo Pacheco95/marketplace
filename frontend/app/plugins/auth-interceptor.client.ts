@@ -17,9 +17,14 @@ export default defineNuxtPlugin(() => {
         return await Reflect.apply(target, thisArg, args)
       } catch (err: unknown) {
         const status = (err as { status?: number })?.status
-        if (status === 401) {
+
+        // Only attempt a token refresh when we know the user is authenticated.
+        // An unauthenticated 401 (e.g. initial fetchCurrentUser with no cookie)
+        // should bubble up and be handled by the caller — not trigger a refresh loop.
+        if (status === 401 && store.isAuthenticated) {
           try {
-            await $fetch('/api/v1/auth/refresh', {
+            // Use originalFetch to bypass this proxy and avoid infinite recursion.
+            await originalFetch('/api/v1/auth/refresh', {
               method: 'POST',
               credentials: 'include',
             })
@@ -29,6 +34,7 @@ export default defineNuxtPlugin(() => {
             throw err
           }
         }
+
         throw err
       }
     },
