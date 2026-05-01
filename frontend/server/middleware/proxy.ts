@@ -5,5 +5,7 @@ export default defineEventHandler(async (event) => {
 
   const config = useRuntimeConfig()
   const target = joinURL(config.apiBaseUrl as string, event.path)
-  return proxyRequest(event, target)
+  return proxyRequest(event, target, {
+    fetchOptions: { redirect: 'manual' },
+  })
 })
