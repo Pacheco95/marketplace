@@ -13,8 +13,7 @@
   "refreshTokenMaxReuse": 0,
   "revokeRefreshToken": true,
   "attributes": {
-    "frontendUrl": "http://localhost:8180",
-    "token.exchange.grant.enabled": "true"
+    "frontendUrl": "http://localhost:8180"
   },
   "clients": [
     {
